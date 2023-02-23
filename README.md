@@ -17,11 +17,17 @@ is set.
 RUST_LOG=debug cargo run
 ```
 
-Run `git checkout step-02` to get to the next step.
+## Step 2
+
+This steps refactors the application into a library and a binary. This
+allows multiple binary endpoints that may use the same underlying crate for
+things like the SQS worker or the HTTP handler.
+
+Run `git checkout step-03` to get to the next step.
 
 * [x] Bootstrap Rust project
 * [x] Add tokio and anyhow and run as an async binary
-* [ ] Library and binary structure and setup tracing
+* [x] Library and binary structure and setup tracing
 * [ ] Add axum and setup a hello world endpoint
 * [ ] Explore different extractors for Path, Body and Query Params
 * [ ] Add database support with sqlx and postgres

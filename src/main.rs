@@ -1,9 +1,6 @@
 use anyhow::Result;
 use tracing_subscriber::EnvFilter;
-
-use crate::greeting::greet;
-
-mod greeting;
+use mulib::greeting::greet;
 
 #[tokio::main]
 async fn main() -> Result<()> {
