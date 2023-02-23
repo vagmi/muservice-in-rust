@@ -23,12 +23,21 @@ This steps refactors the application into a library and a binary. This
 allows multiple binary endpoints that may use the same underlying crate for
 things like the SQS worker or the HTTP handler.
 
-Run `git checkout step-03` to get to the next step.
+## Step 3
+
+This step adds axum and sets up a hello world endpoint.
+
+* Setup and start server - `./src/server.rs`
+* Router - `./src/router.rs`
+* Error - `./src/error.rs`
+
+Run `git checkout step-04` to get to the next step.
+
 
 * [x] Bootstrap Rust project
 * [x] Add tokio and anyhow and run as an async binary
 * [x] Library and binary structure and setup tracing
-* [ ] Add axum and setup a hello world endpoint
+* [x] Add axum and setup a hello world endpoint
 * [ ] Explore different extractors for Path, Body and Query Params
 * [ ] Add database support with sqlx and postgres
 * [ ] Authentication based on a JWT token
