@@ -1,27 +1,21 @@
-use axum::{Router, extract::Path, routing::get};
+use axum::{Router, routing::{get, post}};
 use tower_http::trace::TraceLayer;
-use crate::greeting::greet;
 
+use self::{ 
+    path_handler::say_hello, 
+    query_handler::handle_query, 
+    json_handler::use_todo
+};
 
-async fn say_hello(Path(name): Path<String>) -> String {
-    greet(&name)
-}
+mod path_handler;
+mod query_handler;
+mod json_handler;
 
 pub fn create_router() -> Router {
     Router::new()
         .route("/hello/:name", get(say_hello))
+        .route("/search", get(handle_query))
+        .route("/todo/use", post(use_todo))
         .layer(TraceLayer::new_for_http())
 }
 
-#[cfg(test)]
-mod tests {
-    use axum::extract::Path;
-
-    use super::say_hello;
-    use crate::greeting::greet;
-
-    #[tokio::test]
-    async fn should_say_hello() {
-        assert_eq!(greet("confoo-2023"), say_hello(Path("confoo-2023".to_string())).await)
-    }
-}

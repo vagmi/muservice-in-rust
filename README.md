@@ -31,13 +31,22 @@ This step adds axum and sets up a hello world endpoint.
 * Router - `./src/router.rs`
 * Error - `./src/error.rs`
 
-Run `git checkout step-04` to get to the next step.
+## Step 4
+
+This step adds `serde` and `serde_json` for serializing structs. We need
+this for reading the request body and returning JSON.
+
+* Path Parameters - `./src/router/path_handler.rs`
+* Query Parameters - `./src/router/query_handler.rs`
+* JSON body handler - `./src/router/json_handler.rs`
+
+Run `git checkout step-05` to get to the next step.
 
 
 * [x] Bootstrap Rust project
 * [x] Add tokio and anyhow and run as an async binary
 * [x] Library and binary structure and setup tracing
 * [x] Add axum and setup a hello world endpoint
-* [ ] Explore different extractors for Path, Body and Query Params
+* [x] Explore different extractors for Path, Body and Query Params
 * [ ] Add database support with sqlx and postgres
 * [ ] Authentication based on a JWT token

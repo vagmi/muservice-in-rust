@@ -1,5 +1,5 @@
 [package]
-name = "muservice-in-rust"
+name    = "muservice-in-rust"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,14 +13,16 @@ path = "src/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.69"
-axum = "0.6.7"
-axum-macros = "0.3.4"
-hyper = "0.14.24"
-thiserror = "1.0.38"
-tokio = {version = "1.25.0", features=["full"]}
-tower-http = {version = "0.3.5", features = ["trace"]}
-tracing = "0.1.37"
+anyhow             = "1.0.69"
+axum               = "0.6.7"
+axum-macros        = "0.3.4"
+hyper              = "0.14.24"
+serde              = {version="1.0.152", features=["derive"]}
+serde_json         = "1.0.93"
+thiserror          = "1.0.38"
+tokio              = {version = "1.25.0", features=["full"]}
+tower-http         = {version = "0.3.5", features=["trace"]}
+tracing            = "0.1.37"
 tracing-subscriber = {version="0.3.16", features=["env-filter"]}
-ulid = "1.0.0"
+ulid               = "1.0.0"
 
