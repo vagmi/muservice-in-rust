@@ -59,6 +59,18 @@ I've set my `DATABASE_URL` to `postgres:///testdb`
 * App State - `./src/app/mod.rs`
 * API - `./src/router/tasks_api.rs`
 
+Get Tasks
+
+```
+http localhost:3000/api/tasks
+```
+
+Create a task
+
+```
+http localhost:3000/api/tasks title="give the talk"
+```
+
 Run `git checkout step-06` to get to the next step.
 
 
