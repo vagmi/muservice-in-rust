@@ -1,34 +1,40 @@
 use async_trait::async_trait;
 use chrono::{Utc, DateTime};
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 use sqlx::{Transaction, Postgres, FromRow};
 
 use super::error::DaoError;
 
 #[derive(FromRow, Debug, Serialize)]
-struct Task {
+pub struct Task {
     id: i64,
     title: String,
     done: bool,
     created_at: DateTime<Utc>
 }
 
-struct NewTaskRequest {
+#[derive(Deserialize)]
+pub struct NewTaskRequest {
     title: String
 }
 
 #[async_trait]
-trait TasksRepository {
+pub trait TasksRepository {
     async fn get_tasks(&mut self) -> Result<Vec<Task>, DaoError>;
     async fn create_task(&mut self, task_req: NewTaskRequest) -> Result<Task, DaoError>;
 }
 
-struct DbTaskRepository<'a, 'c> {
+pub struct DbTasksRepository<'a, 'c> {
     tx: &'a mut Transaction<'c, Postgres>
+}
+impl<'a,'c> DbTasksRepository<'a, 'c> {
+    pub fn new(tx: &'a mut Transaction<'c, Postgres>) -> DbTasksRepository<'a, 'c> {
+        DbTasksRepository { tx }
+    }
 }
 
 #[async_trait]
-impl<'a, 'c> TasksRepository for DbTaskRepository<'a, 'c> {
+impl<'a, 'c> TasksRepository for DbTasksRepository<'a, 'c> {
     async fn get_tasks(&mut self) -> Result<Vec<Task>, DaoError> {
         let tasks = sqlx::query_as!(Task, "select * from tasks")
                           .fetch_all(&mut *self.tx).await?;
@@ -48,14 +54,14 @@ impl<'a, 'c> TasksRepository for DbTaskRepository<'a, 'c> {
 #[cfg(test)]
 mod tests {
     use sqlx::PgPool;
-    use super::{DbTaskRepository, TasksRepository, NewTaskRequest};
+    use super::{DbTasksRepository, TasksRepository, NewTaskRequest};
 
     #[sqlx::test]
     async fn should_get_tasks(pool: PgPool) {
         let mut tx = pool.begin().await.unwrap();
         sqlx::query("insert into tasks(title) values('first')")
              .execute(&mut tx).await.unwrap();
-        let mut repo = DbTaskRepository {tx: &mut tx};
+        let mut repo = DbTasksRepository {tx: &mut tx};
         let tasks = repo.get_tasks().await.unwrap();
         assert_eq!(1, tasks.len());
         assert_eq!(Some(&String::from("first")), 
@@ -65,7 +71,7 @@ mod tests {
     #[sqlx::test]
     async fn should_create_task(pool: PgPool) {
         let mut tx = pool.begin().await.unwrap();
-        let mut repo = DbTaskRepository {tx: &mut tx};
+        let mut repo = DbTasksRepository {tx: &mut tx};
         let task = repo.create_task(
             NewTaskRequest{title: String::from("learn rust")}
             ).await.unwrap();

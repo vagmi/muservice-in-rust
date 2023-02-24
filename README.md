@@ -54,8 +54,10 @@ build and run type checked SQL. You can opt out of it but I prefer it.
 
 I've set my `DATABASE_URL` to `postgres:///testdb`
 
-DAO - `./src/dao/mod.rs`
-Tasks - `./src/dao/tasks.rs`
+* DAO - `./src/dao/mod.rs`
+* Tasks - `./src/dao/tasks.rs`
+* App State - `./src/app/mod.rs`
+* API - `./src/router/tasks_api.rs`
 
 Run `git checkout step-06` to get to the next step.
 
@@ -65,5 +67,5 @@ Run `git checkout step-06` to get to the next step.
 * [x] Library and binary structure and setup tracing
 * [x] Add axum and setup a hello world endpoint
 * [x] Explore different extractors for Path, Body and Query Params
-* [ ] Add database support with sqlx and postgres
+* [x] Add database support with sqlx and postgres
 * [ ] Authentication based on a JWT token

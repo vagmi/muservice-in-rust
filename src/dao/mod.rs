@@ -1,2 +1,2 @@
-mod tasks;
-mod error;
+pub mod tasks;
+pub mod error;

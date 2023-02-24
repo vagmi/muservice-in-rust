@@ -38,6 +38,8 @@ jobs:
       run: cargo install sqlx-cli || true
     - name: Build
       run: cargo build --verbose
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
     - name: Create DB
       run: sqlx db create
       env:
