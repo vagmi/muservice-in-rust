@@ -5,6 +5,12 @@ This project is a companion to my talk at ConFoo about building a rust project.
 You should checkout a fully fleshed out starter template for building 
 microservices at [tarkalabs/muservice-rs](https://github.com/tarkalabs/muservice-rs).
 
+If you just cloned the repo you'd want to get to the step-0 branch.
+
+```
+git checkout step-0
+```
+
 ## Step 1
 
 This step adds the dependencies like `tokio`, `anyhow` and `tracing_subscriber`.
