@@ -12,6 +12,14 @@ env:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: "postgres:14"
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DATABASE: testdb
 
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +34,15 @@ jobs:
           ~/.cargo/git/db/
           target/            
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Install Cargo SQLX
+      run: cargo install sqlx-cli || true
     - name: Build
       run: cargo build --verbose
+    - name: Create DB
+      run: sqlx db create
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
     - name: Run tests
       run: cargo test --verbose
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable

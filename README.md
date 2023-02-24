@@ -40,7 +40,24 @@ this for reading the request body and returning JSON.
 * Query Parameters - `./src/router/query_handler.rs`
 * JSON body handler - `./src/router/json_handler.rs`
 
-Run `git checkout step-05` to get to the next step.
+## Step 5
+
+This steps adds database handling to our service. Here we are using
+postgresql with sqlx. We are also going to add chrono for our date 
+types and async_trait to build a repository trait and an implementation
+for it using the concrete database. This will help us test the router
+with just a mock implementation of the trait while the DAO tests can
+hit the actual database.
+
+We'll need an environment variable called `DATABASE_URL` for cargo to
+build and run type checked SQL. You can opt out of it but I prefer it.
+
+I've set my `DATABASE_URL` to `postgres:///testdb`
+
+DAO - `./src/dao/mod.rs`
+Tasks - `./src/dao/tasks.rs`
+
+Run `git checkout step-06` to get to the next step.
 
 
 * [x] Bootstrap Rust project
