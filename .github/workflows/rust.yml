@@ -36,12 +36,16 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - name: Install Cargo SQLX
       run: cargo install sqlx-cli || true
-    - name: Build
-      run: cargo build --verbose
-      env:
-        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
     - name: Create DB
       run: sqlx db create
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
+    - name: Run migration
+      run: sqlx migrate run
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
+    - name: Build
+      run: cargo build --verbose
       env:
         DATABASE_URL: postgres://postgres:password@localhost/postgres?sslmode=disable
     - name: Run tests
