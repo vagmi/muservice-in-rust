@@ -2,7 +2,8 @@
 
 This project is a companion to my talk at ConFoo about building a rust project.
 
-The actual code is in different branches.
+You should checkout a fully fleshed out starter template for building 
+microservices at [tarkalabs/muservice-rs](https://github.com/tarkalabs/muservice-rs).
 
 ## Step 1
 
