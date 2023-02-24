@@ -61,6 +61,18 @@ I've set my `DATABASE_URL` to `postgres:///testdb`
 
 Run `git checkout step-06` to get to the next step.
 
+## Step 6
+
+In this step we accept an Authorization header. If the authorization header
+is not present or if it is incorrect we present a 401. If not we show the 
+claims as a JSON object.
+
+* Secure Route - `./src/router/auth_endpoint.rs`
+* Include Secret - `./src/app/mod.rs` and `./src/router.rs`
+
+```
+http localhost:3000/api/secure Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MiIsIm5hbWUiOiJWYWdtaSIsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxODc3MjI0Njk2fQ.ePx-Gzd6-PsZ2vKn7v5QmpgAt8vQ8c5AgXLsHR1AFR0
+```
 
 * [x] Bootstrap Rust project
 * [x] Add tokio and anyhow and run as an async binary
@@ -68,4 +80,4 @@ Run `git checkout step-06` to get to the next step.
 * [x] Add axum and setup a hello world endpoint
 * [x] Explore different extractors for Path, Body and Query Params
 * [x] Add database support with sqlx and postgres
-* [ ] Authentication based on a JWT token
+* [x] Authentication based on a JWT token
